@@ -142,6 +142,21 @@ select.rateSel{background:var(--bg);border:1px solid var(--line);border-radius:6
   .newSeg input,#newName{width:100%;flex:1}
   .newSeg #addSeg{width:100%}
 }
+.appFoot{display:flex;flex-wrap:wrap;text-align:center;justify-content:center;gap:4px 14px;align-items:center;color:var(--muted);font-size:12px;padding:8px 16px 24px}
+.linkBtn{background:none;border:none;color:var(--accent);text-decoration:underline;padding:4px;font-size:12px}
+.modalBack{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:560px;width:100%;max-height:100%;display:flex;flex-direction:column;overflow:hidden}
+.modal h2{margin:0;padding:16px 18px 8px;font-size:18px}
+.modalBody{overflow:auto;padding:0 18px 8px;line-height:1.7;font-size:14px}
+.modalBody h3{font-size:14px;color:var(--accent);margin:14px 0 4px}
+.modalBody ul,.modalBody ol{margin:0;padding-left:20px}
+.modalBody li{margin:3px 0}
+.agreeRow{display:flex;gap:8px;align-items:center;padding:10px 18px;border-top:1px solid var(--line)}
+.modalBtns{display:flex;justify-content:flex-end;padding:0 18px 16px}
+.modalBtns button{min-width:120px;padding:10px 16px}
+.modalBtns button:disabled{opacity:.45;cursor:not-allowed}
+@media (max-width:700px){ .appFoot{padding-bottom:90px} }
 .stampBar{display:none;background:rgba(246,173,85,.12);border:1px solid var(--accent2);border-radius:8px;padding:8px;margin-bottom:8px;font-size:12px;line-height:1.7}
 .stampBar.on{display:block}
 </style>
@@ -266,6 +281,47 @@ select.rateSel{background:var(--bg);border:1px solid var(--line);border-radius:6
     </section>
   </aside>
 </main>
+<footer class="appFoot">
+  <button id="aboutBtn" class="linkBtn">使用說明與免責聲明</button>
+  <span>段落 Pad 播放器 · 由光影哲學設計有限公司設計 · 製片：光哲設計</span>
+</footer>
+<div id="about" class="modalBack" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <h2 id="aboutTitle">使用說明與免責聲明</h2>
+    <div class="modalBody">
+      <h3>怎麼用</h3>
+      <ol>
+        <li>按「載入歌曲」選擇你裝置上的音樂檔（MP3、M4A、WAV 等）。</li>
+        <li>在「區段設定」填入起點、終點秒數建立段落，每個段落會變成一個 Pad，點一下就播放。</li>
+        <li>載入 .lrc 歌詞，或在歌詞區按「編輯」貼上文字，就會跟著播放同步顯示。</li>
+        <li>每段可設定倍速、預備秒數、淡出與循環；需要時可輸出 MP3。</li>
+      </ol>
+      <h3>版權與使用責任</h3>
+      <ul>
+        <li>本工具只提供播放、剪輯與歌詞同步的功能，<b>不提供、也不散布任何音樂或歌詞</b>。</li>
+        <li>你載入的歌曲、歌詞，以及輸出的 MP3，版權屬於原權利人。請只使用你有權使用的內容，例如自己購買或取得授權的音樂、自己創作的作品。</li>
+        <li>輸出的檔案僅適合個人練習、教學或已取得授權的表演使用。未經授權公開散布、上傳、販售或做商業用途，可能侵害著作權，責任由使用者自行負擔。</li>
+      </ul>
+      <h3>資料與隱私</h3>
+      <ul>
+        <li>音樂檔只在你的裝置上處理，不會上傳到任何伺服器。</li>
+        <li>段落與歌詞存在你這台裝置的瀏覽器裡。清除瀏覽器資料就會消失，重要的專案請用「存成專案檔」或「複製專案碼」備份。<span class="inClaudeOnly">在 Claude 網址版中，段落也會同步到你自己的 Claude 帳號，只有你看得到。</span></li>
+        <li class="notInClaude">使用「線上找時間」時，會把你輸入的歌名送到第三方歌詞庫 LRCLIB（lrclib.net）查詢。該服務的內容與可用性不在本工具控制範圍內。</li>
+      </ul>
+      <h3>免責聲明</h3>
+      <ul>
+        <li>本工具依「現況」免費提供，不保證沒有錯誤，也不保證適用於特定用途。自動對時、音訊估算等結果可能不準確，請自行確認。</li>
+        <li>因使用本工具所造成的任何資料遺失、檔案損壞、表演失誤或其他損失，設計者（光影哲學設計有限公司）不負賠償責任。</li>
+        <li>本工具是獨立開發的作品，與任何 DJ 設備、音樂串流或軟體廠商都沒有關係，也未獲得其授權或背書。</li>
+        <li>MP3 編碼使用開源程式庫 lamejs（LGPL 授權）。</li>
+      </ul>
+      <h3>製作</h3>
+      <p style="margin:0">本工具由 <b>光影哲學設計有限公司</b> 設計<br>製片：<b>光哲設計</b></p>
+    </div>
+    <label class="agreeRow" id="agreeRow"><input type="checkbox" id="agreeChk"> 我已閱讀並同意以上說明</label>
+    <div class="modalBtns"><button id="aboutOk" class="primary">開始使用</button></div>
+  </div>
+</div>
 <div id="toast"></div>
 
 <!-- MP3 編碼器：lamejs 1.2.1（LGPL，https://github.com/zhuker/lamejs），內嵌以便離線使用 -->
@@ -1420,6 +1476,7 @@ window.addEventListener("resize",()=>{ computePeaks(); });
 window.addEventListener("keydown",e=>{
   if(e.target.matches("input[type=text],input[type=number],textarea,select")) return;
   if(e.metaKey||e.ctrlKey||e.altKey) return;
+  if(!$("about").hidden){ if(e.key==="Escape" && $("agreeRow").hidden) $("about").hidden=true; return; }
   const k=e.key.length===1?e.key.toUpperCase():e.key;
   if(k===" "){ e.preventDefault(); togglePlay(); return; }
   if(k==="T" && stamping){ e.preventDefault(); stamp(); return; }
@@ -1431,6 +1488,19 @@ window.addEventListener("keydown",e=>{
   if(k==="ArrowRight"){ seek(position()+5); return; }
   const pi=PAD_KEYS.indexOf(k); if(pi>=0 && segments[pi] && !e.repeat){ e.preventDefault(); triggerPad(segments[pi]); }
 });
+
+// 免責聲明：第一次開啟時要勾選同意；之後可從頁尾再打開
+const AGREE_KEY="segpad:agreed:v1";
+let agreed=false; try{ agreed=localStorage.getItem(AGREE_KEY)==="1"; }catch(e){}
+document.querySelectorAll(IN_CLAUDE?".notInClaude":".inClaudeOnly").forEach(el=>el.hidden=true);
+function openAbout(first){
+  $("about").hidden=false; $("agreeRow").hidden=!first; $("agreeChk").checked=false;
+  $("aboutOk").textContent=first?"開始使用":"關閉"; $("aboutOk").disabled=!!first;
+}
+$("agreeChk").onchange=()=>{ $("aboutOk").disabled=!$("agreeChk").checked; };
+$("aboutOk").onclick=()=>{ if(!$("agreeRow").hidden){ agreed=true; try{ localStorage.setItem(AGREE_KEY,"1"); }catch(e){} } $("about").hidden=true; };
+$("aboutBtn").onclick=()=>openAbout(false);
+if(!agreed) openAbout(true);
 
 renderAll(); requestAnimationFrame(frame);
 window.__segpad = { get P(){return P;}, get segments(){return segments;}, get lyrics(){return lyrics;}, position };
