@@ -1,6 +1,6 @@
 {
-  "name": "段落 Pad 播放器",
-  "short_name": "段落Pad",
+  "name": "歌曲段落設計-MV拍攝小幫手",
+  "short_name": "MV拍攝小幫手",
   "description": "載入歌曲、設定秒數區段成 Pad 播放，搭配同步歌詞。",
   "lang": "zh-Hant",
   "start_url": "./",
